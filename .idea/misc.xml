@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.277" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.277" />
+        <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout-land/high_rated_movie.xml" value="0.2" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout-land/item_movie.xml" value="0.2" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout-land/landscape_layout.xml" value="0.1" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout/high_rated_movie.xml" value="0.15572916666666667" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout/item_movie.xml" value="0.264" />
         <entry key="..\:/Users/Nps99/Documents/dir/Flixster/app/src/main/res/layout/item_movie2.xml" value="0.264945652173913" />
       </map>
