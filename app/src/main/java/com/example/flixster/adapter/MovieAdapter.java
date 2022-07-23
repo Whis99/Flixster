@@ -30,8 +30,13 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType == 0){
             View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
             return new ViewHolder(movieView);
+        }else {
+            View movieView2 = LayoutInflater.from(context).inflate(R.layout.high_rated_movie, parent, false);
+            return new ViewHolder(movieView2);
+        }
 
     }
 
@@ -41,6 +46,7 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
         Movie movie = movies.get(position);
         // Bind movie data into ViewHolder
         holder.bind(movie);
+
     }
 
 
@@ -49,22 +55,42 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
         return movies.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        int type;
+        // check movie's vote rate to see if it is a high graded one or not
+        if(movies.get(position).getVote_rating() < 5){
+            // if it is low type is 0
+            type = 0;
+        }else{
+//            if it's high type is 1
+            type = 1;
+        }
+        return type;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        ImageView highPoster;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            highPoster = itemView.findViewById(R.id.ivPoster2);
         }
 
         public void bind(Movie movie) {
+            String imageUrl;
+
+            if(getItemViewType() == 0){
+                // if movie is a low graded movie
                 tvTitle.setText(movie.getTitle());
                 tvOverview.setText(movie.getOverview());
-                String imageUrl;
+
                 // if phone in landscape mode
                 if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     // imageUrl = backdrop image
@@ -77,9 +103,17 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                         .load(imageUrl)
                         .placeholder(R.drawable.load_icon)
                         .into(ivPoster);
+            }
+            else{
+                // if it is an high rated movie get only the backdrop image
+                imageUrl = movie.getBackdropPath();
+                Glide.with(context)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.load_icon)
+                        .into(highPoster);
+            }
 
-        }
-
+            }
 
     }
 
