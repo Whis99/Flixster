@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movie" type="com.example.flixster.models.Movie" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".DetailActivity">
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/ytubePlayer"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <TextView
+            android:id="@+id/detail_titleId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_red"
+            android:textSize="30sp"
+            tools:fontFamily="serif"
+            android:text="@{movie.title}"
+            tools:text="movieTitle" />
+
+        <RatingBar
+            android:id="@+id/detail_ratingId"
+            style="@android:style/Widget.Holo.Light.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="10"
+            android:progressTint="@color/dark_red"
+            android:rating="@{(float)movie.vote_rating}" />
+
+        <TextView
+            android:id="@+id/detail_overviewId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/white"
+            android:text="@{movie.overview}"
+            tools:text="This is an overview" />
+    </LinearLayout>
+
+</layout>
