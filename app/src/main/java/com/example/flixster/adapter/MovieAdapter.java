@@ -71,7 +71,7 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
     public int getItemViewType(int position) {
         int type;
         // check movie's vote rate to see if it is a high graded one or not
-        if((float) movies.get(position).getVote_rating() < 7.5){
+        if((float) movies.get(position).getVote_rating() < 5){
             // if it is low type is 0
             type = 0;
         }else{
