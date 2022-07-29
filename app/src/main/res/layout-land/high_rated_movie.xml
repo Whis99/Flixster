@@ -25,7 +25,7 @@
             android:layout_alignParentEnd="false"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            app:imageUrl="@{movie.backdropPath}"
+            app:imageUrl2="@{movie.backdropPath}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <ImageView

@@ -1,21 +1,17 @@
 package com.example.flixster.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Parcel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,10 +27,6 @@ import org.parceler.Parcels;
 import java.util.List;
 
 public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-
-    public List<Movie> getMovies() {
-        return movies;
-    }
 
     public static Context context;
     List<Movie> movies;
@@ -88,64 +80,25 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        TextView tvTitle;
-//        TextView tvOverview;
-//        ImageView ivPoster;
-//        ImageView highPoster;
-//        RelativeLayout container_layout;
-//        RelativeLayout container_layout2;
-
         ItemMovieBinding movieBinding;
         HighRatedMovieBinding ratedMovieBinding;
 
         public ViewHolder(@NonNull HighRatedMovieBinding ratedMovieBinding) {
             super(ratedMovieBinding.getRoot());
-//            tvTitle = itemView.findViewById(R.id.tvTitle);
-//            tvOverview = itemView.findViewById(R.id.tvOverview);
-//            ivPoster = itemView.findViewById(R.id.ivPoster);
-//            highPoster = itemView.findViewById(R.id.ivPoster2);
-//            container_layout = itemView.findViewById(R.id.container);
-//            container_layout2 = itemView.findViewById(R.id.container2);
 
             this.ratedMovieBinding = ratedMovieBinding;
         }
 
         public ViewHolder(@NonNull  ItemMovieBinding movieBinding) {
             super(movieBinding.getRoot());
-//            tvTitle = itemView.findViewById(R.id.tvTitle);
-//            tvOverview = itemView.findViewById(R.id.tvOverview);
-//            ivPoster = itemView.findViewById(R.id.ivPoster);
-//            highPoster = itemView.findViewById(R.id.ivPoster2);
-//            container_layout = itemView.findViewById(R.id.container);
-//            container_layout2 = itemView.findViewById(R.id.container2);
 
             this.movieBinding = movieBinding;
         }
 
         public void bind(Movie movie) {
-            String imageUrl;
-            int radius = 20;
 
             if(getItemViewType() == 0){
-                // if movie is a low graded movie
-//                tvTitle.setText(movie.getTitle());
-//                tvOverview.setText(movie.getOverview());
-
-                // if phone in landscape mode
-//                if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//                    // imageUrl = backdrop image
-//                    imageUrl = movie.getBackdropPath();
-//                } else {
-//                    // else imageUrl = poster image
-//                    imageUrl = movie.getPosterPath();
-//                }
-//                Glide.with(context)
-//                        .load(imageUrl)
-//                        .fitCenter()
-//                        .transform(new RoundedCorners(radius))
-//                        .placeholder(R.drawable.load_icon)
-//                        .into(ivPoster);
-
+                // Low rated movie
                 movieBinding.setMovie(movie);
                 movieBinding.executePendingBindings();
                 movieBinding.container.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +111,9 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                 });
             }
             else{
-                // if it is an high rated movie get only the backdrop image
+                // high rated movie
+                ratedMovieBinding.setMovie(movie);
+                ratedMovieBinding.executePendingBindings();
 
                 ratedMovieBinding.container2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -166,7 +121,11 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                     Intent intent2 = new Intent(context, DetailActivity.class);
                     intent2.putExtra("movie", Parcels.wrap(movie));
                     context.startActivity(intent2);
-                    Toast.makeText(context, movie.getTitle(), Toast.LENGTH_SHORT).show();
+
+                        ActivityOptions options = ActivityOptions.
+                                makeSceneTransitionAnimation((Activity) context, ratedMovieBinding.ivPoster2, "activityTransition");
+                        context.startActivity(intent2, options.toBundle());
+//                        startActivity(intent, options.toBundle());
                     }
                 });
             }
@@ -175,9 +134,10 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
 
     }
     public static class BindingAdapterUtils {
+        static int radius = 40;
+
         @BindingAdapter({"imageUrl"})
         public static void loadImage(ImageView view, String url) {
-            int radius = 20;
 
             Glide.with(context)
                     .load(url)
@@ -187,6 +147,16 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                     .into(view);
         }
 
+        @BindingAdapter({"imageUrl2"})
+        public static void loadImage2(ImageView view, String url) {
+
+            Glide.with(context)
+                    .load(url)
+                    .fitCenter()
+                    .transform(new RoundedCorners(radius))
+                    .placeholder(R.drawable.load_icon)
+                    .into(view);
+        }
     }
 
 }
