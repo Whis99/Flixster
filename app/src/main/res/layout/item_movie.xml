@@ -15,7 +15,8 @@
     android:backgroundTintMode="add"
     android:padding="15dp"
     android:paddingStart="10dp"
-    android:paddingEnd="10dp">
+    android:paddingEnd="10dp"
+    android:transitionName="activityTransition">
 
     <LinearLayout
         android:layout_width="match_parent"

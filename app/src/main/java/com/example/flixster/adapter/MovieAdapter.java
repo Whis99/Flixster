@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.flixster.DetailActivity;
+import com.example.flixster.MainActivity;
 import com.example.flixster.R;
 import com.example.flixster.databinding.HighRatedMovieBinding;
 import com.example.flixster.databinding.ItemMovieBinding;
@@ -106,7 +108,11 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                     public void onClick(View v) {
                         Intent intent = new Intent(context, DetailActivity.class);
                         intent.putExtra("movie", Parcels.wrap(movie));
-                        context.startActivity(intent);
+
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((Activity)context, movieBinding.ivPoster, "activityTransition");
+                        context.startActivity(intent, options.toBundle());
+
                     }
                 });
             }
@@ -120,12 +126,10 @@ public class MovieAdapter extends  RecyclerView.Adapter<MovieAdapter.ViewHolder>
                     public void onClick(View v) {
                     Intent intent2 = new Intent(context, DetailActivity.class);
                     intent2.putExtra("movie", Parcels.wrap(movie));
-                    context.startActivity(intent2);
 
-                        ActivityOptions options = ActivityOptions.
-                                makeSceneTransitionAnimation((Activity) context, ratedMovieBinding.ivPoster2, "activityTransition");
-                        context.startActivity(intent2, options.toBundle());
-//                        startActivity(intent, options.toBundle());
+                        ActivityOptionsCompat options2 = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((Activity)context, ratedMovieBinding.ivPoster2, "activityTransition");
+                        context.startActivity(intent2, options2.toBundle());
                     }
                 });
             }
